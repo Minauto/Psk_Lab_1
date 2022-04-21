@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head/>
+<h:body>
+    <h2>Players playing in #{usersForMatches.match.title} match:</h2>
+    <ol>
+        <ui:repeat value="#{usersForMatches.match.users}" var="user">
+            <li>
+                <h:link value="#{user.username}" outcome="userMatches?userId=#{user.id}" />
+            </li>
+        </ui:repeat>
+    </ol>
+    <h:form>
+        <h:inputText a:placeholder="Player name and affiliation" value="#{usersForMatches.userToCreate.username}" required="true" />
+        <h:commandButton value="Add player"
+                         actionListener="#{usersForMatches.createUser}"
+                         action="#{'usersPlaying?faces-redirect=true&amp;matchId='.concat(usersForMatches.match.id)}">
+            <f:param name="matchId" value="#{usersForMatches.match.id}" />
+        </h:commandButton>
+    </h:form>
+    <h:link outcome="index" value="Back to games page"/>
+</h:body>
+</html>
