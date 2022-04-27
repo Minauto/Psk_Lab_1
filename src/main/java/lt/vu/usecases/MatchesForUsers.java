@@ -34,6 +34,5 @@ public class MatchesForUsers {
     @Transactional
     public void updateName() {
         userDAO.update(this.user);
-
     }
 }
