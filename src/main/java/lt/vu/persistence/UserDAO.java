@@ -25,4 +25,8 @@ public class UserDAO {
     public User findOne(Integer id) {
         return em.find(User.class, id);
     }
+
+    public User update(User user){
+        return em.merge(user);
+    }
 }

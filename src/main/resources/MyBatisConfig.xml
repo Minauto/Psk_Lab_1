@@ -6,6 +6,9 @@
     <typeAliases>
         <typeAlias type="lt.vu.mybatis.model.Team" alias="Team"/>
         <typeAlias type="lt.vu.mybatis.model.Player" alias="Player"/>
+        <typeAlias type="lt.vu.mybatis.model.Game" alias="Game"/>
+        <typeAlias type="lt.vu.mybatis.model.Match" alias="Match"/>
+        <typeAlias type="lt.vu.mybatis.model.User" alias="User"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -18,5 +21,8 @@
     <mappers>
         <mapper resource="mybatis.xml/TeamMapper.xml"/>
         <mapper resource="mybatis.xml/PlayerMapper.xml"/>
+        <mapper resource="mybatis.xml/GameMapper.xml"/>
+        <mapper resource="mybatis.xml/MatchMapper.xml"/>
+        <mapper resource="mybatis.xml/UserMapper.xml"/>
     </mappers>
 </configuration>

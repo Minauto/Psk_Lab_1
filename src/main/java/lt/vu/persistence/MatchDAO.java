@@ -17,7 +17,6 @@ public class MatchDAO {
         return em.createNamedQuery("Match.findAll", Match.class).getResultList();
     }
 
-
     public void persist(Match match){
         this.em.persist(match);
     }
