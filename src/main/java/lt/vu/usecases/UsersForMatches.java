@@ -32,7 +32,11 @@ public class UsersForMatches {
 
     @Getter
     @Setter
-    private User user;
+    private User user = new User();
+
+    @Getter
+    @Setter
+    private User userToAdd  = new User();
 
     @Getter @Setter
     private User userToCreate = new User();
@@ -51,7 +55,9 @@ public class UsersForMatches {
 
     @Transactional
     public void addUser() {
-        match.addUsers(this.user);
+        this.userToAdd = userDAO.findOne(this.user.getId());
+        userToAdd.addMatches(this.match);
+        match.addUsers(this.userToAdd);
     }
 
     @Transactional

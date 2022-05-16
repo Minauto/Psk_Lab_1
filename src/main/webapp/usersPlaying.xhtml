@@ -24,6 +24,15 @@
         </h:commandButton>
     </h:form>
     <h:form>
+        <h:inputText a:placeholder="Player Id" value="#{usersForMatches.user.id}" required="true" />
+        <h:commandButton value="Add player"
+                         actionListener="#{usersForMatches.addUser}"
+                         action="#{'usersPlaying?faces-redirect=true&amp;matchId='.concat(usersForMatches.match.id)}">
+            <f:param name="matchId" value="#{usersForMatches.match.id}" />
+            <f:param name="userId" value="#{usersForMatches.user.id}" />
+        </h:commandButton>
+    </h:form>
+    <h:form>
         <h:commandButton value="Decide Victor" disabled="#{decideVictorOfMatch.taskRunning}" action="#{decideVictorOfMatch.decideVictor()}">
             <f:param name="matchId" value="#{usersForMatches.match.id}" />
         </h:commandButton>
