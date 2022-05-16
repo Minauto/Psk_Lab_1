@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lt.vu.mybatis.dao.MatchMapper">
+  <resultMap id="BaseResultMap" type="lt.vu.mybatis.model.Match">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="GAME_ID" jdbcType="INTEGER" property="gameId" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <!-- Manually added for ManyToOne -->
+    <!-- Nested result (no N+1 select problem) -->
+    <association property="gameId"
+                 columnPrefix="university_"
+                 resultMap="lt.vu.mybatis.dao.GameMapper.BaseResultMap"/>
+    <!-- Manually added for ManyToMany -->
+    <!-- Nested select (N+1 select problem) -->
+    <collection property="users" javaType="ArrayList"
+                ofType="User" column="id"
+                select="selectUsersForMatch"/>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from PUBLIC.MATCH
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="lt.vu.mybatis.model.Match" useGeneratedKeys="true">
+    insert into PUBLIC.MATCH (GAME_ID, TITLE)
+    values (#{gameId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="lt.vu.mybatis.model.Match">
+    update PUBLIC.MATCH
+    set GAME_ID = #{gameId,jdbcType=INTEGER},
+      TITLE = #{title,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select ID, GAME_ID, TITLE
+    from PUBLIC.MATCH
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, GAME_ID, TITLE
+    from PUBLIC.MATCH
+  </select>
+  <select id="selectUsersForMatch" resultType="User">
+    SELECT c.id, c.username
+    FROM PUBLIC.user c
+           JOIN PUBLIC.MATCH_ID sc on c.id = sc.users_id
+    WHERE sc.matches_id = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>

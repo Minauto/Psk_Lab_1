@@ -20,8 +20,9 @@
         <h:outputText value="Username: "/>
         <h:inputText a:placeholder="enter new username" value="#{matchesForUsers.user.username}" required="true" />
         <h:commandButton value="update" action="#{matchesForUsers.updateName()}">
-            <f:param name="userId" value="#{matchesForUsers.user.id}" />
+            <f:param name="userId" value="#{matchesForUsers.user.id}" outcome="userMatches?userId=#{user.id}" />
         </h:commandButton>
+        <h:outputText value="Value was already modified by other user. If you want to override it - try again" rendered="#{param['error'] == 'optimistic-lock-exception'}" />
     </h:form>
     <h:link outcome="index" value="Back to games page"/>
 </h:body>

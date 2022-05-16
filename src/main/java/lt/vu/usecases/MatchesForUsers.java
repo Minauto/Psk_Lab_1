@@ -10,6 +10,7 @@ import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.persistence.OptimisticLockException;
+import javax.transaction.RollbackException;
 import javax.transaction.Transactional;
 import java.util.Map;
 
@@ -31,8 +32,13 @@ public class MatchesForUsers {
         this.user = userDAO.findOne(userId);
     }
 
-    @Transactional
-    public void updateName() {
-        userDAO.update(this.user);
+
+    public String updateName() {
+        try{
+            userDAO.update(this.user);
+        } catch (Exception e) {
+            return "/userMatches.xhtml?faces-redirect=true&userId=" + this.user.getId() + "&error=optimistic-lock-exception";
+        }
+        return "userMatches.xhtml?userId=" + this.user.getId() + "&faces-redirect=true";
     }
 }

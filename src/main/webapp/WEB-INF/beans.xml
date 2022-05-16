@@ -6,4 +6,10 @@
                       http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
         bean-discovery-mode="annotated">
 
+    <alternatives>
+        <class>lt.vu.persistence.UserDAOAltTwo</class>
+    </alternatives>
+    <interceptors>
+        <class>lt.vu.interceptors.MyInterceptorImpl</class>
+    </interceptors>
 </beans>

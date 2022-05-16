@@ -1,18 +1,17 @@
 package lt.vu.persistence;
 
-import lt.vu.entities.Match;
 import lt.vu.entities.User;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
+@Alternative
 @ApplicationScoped
-public class UserDAO {
+public class UserDAOAltTwo extends UserDAO{
 
     @Inject
     private EntityManager em;
@@ -32,8 +31,8 @@ public class UserDAO {
     @Transactional
     public void update(User user){
         try {
-            System.out.println("Pausing first transaction for 5 second");
-            Thread.sleep(5000);
+            System.out.println("Pausing first transaction for 10 second");
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

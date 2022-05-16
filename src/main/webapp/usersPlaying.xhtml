@@ -23,6 +23,12 @@
             <f:param name="matchId" value="#{usersForMatches.match.id}" />
         </h:commandButton>
     </h:form>
+    <h:form>
+        <h:commandButton value="Decide Victor" disabled="#{decideVictorOfMatch.taskRunning}" action="#{decideVictorOfMatch.decideVictor()}">
+            <f:param name="matchId" value="#{usersForMatches.match.id}" />
+        </h:commandButton>
+        <h:outputText value="#{decideVictorOfMatch.status}" />
+    </h:form>
     <h:link outcome="index" value="Back to games page"/>
 </h:body>
 </html>
